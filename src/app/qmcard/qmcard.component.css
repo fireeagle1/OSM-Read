@@ -1,0 +1,12 @@
+.head { color: var(--scoutpurple); font-size: 16pt; font-weight: 600; margin-top: 0px;}
+.head2 { margin-top: 0px;} 
+.qmimage { float: left; 
+  width: 500px; 
+  height: 500px;
+  position: relative;  
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;}
+
+  .qmgrid { display:flex; flex-wrap:wrap; justify-content: center;}

@@ -1,0 +1,32 @@
+<ons-card>
+		<div class="header_block">
+			<div class="member_header" *ngIf="null!=member.photo_guid">
+				<img *ngIf="null!=member.photo_guid" src={{member_image}} alt="{{cardTitle}}" class="member_photo">
+      </div>    
+        <div class="title member_name" *ngIf="null!=member.photo_guid">{{member.first_name}}<br>{{member.last_name}}</div>
+        <div class="title member_name" *ngIf="null==member.photo_guid">{{member.first_name}} {{member.last_name}}</div>
+    </div>
+  
+	</ons-card>
+
+ <ons-card>
+    <p class="card_title">Events</p>
+    <div *ngFor="let ev of events_list ; index as z">
+      <ons-list-item >
+      
+      
+      
+      
+      <div class="left list-item__icon"> 
+       
+     
+        <ons-icon class="list-item__icon" icon="fa-times-circle" style="color: #e22e12" *ngIf="(ev.attending == 'No')"></ons-icon>
+      <ons-icon  class="list-item__icon" icon="fa-check-circle" style="color:  #23a950" *ngIf="ev.attending === 'Yes'"></ons-icon>
+      <ons-icon class="list-item__icon" icon="fa-question-circle" style="color:  #003982" *ngIf="ev.attending!='Yes'&&ev.attending!='No'"></ons-icon>
+      </div>
+      
+      <div class="center">{{ev.name}}</div>
+            </ons-list-item>
+      </div>
+      
+  </ons-card>

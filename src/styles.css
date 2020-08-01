@@ -1,0 +1,41 @@
+/* Add application setyles & imports to this file! */
+:root {
+  --scoutpurple: #7413dc; 
+  --scoutteal: #00a794; 
+  --scoutgreen: #23a950; 
+    --scoutred: #e22e12; 
+        --scoutyellow: #ffe627;
+        --scoutblue: #006ddf; 
+        --scoutdarkblue: #003982;
+        --scoutpink: #ffb4e5;
+}
+.qmimage { float: left; 
+  padding: 10px;
+  position: relative;  
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;}
+:checked+.segment__button {  background-color: #00a794; color: white !important}
+ons-speed-dial-item.fab { background-color: var(--scoutpurple); color: white !important}
+button.fab, button.fab:active, ons-fab.fab:active, ons-fab.fab { background-color: var(--scoutpurple); color: white !important }
+ons-speed-dial-item.fab:active { background-color:  var(--scoutteal); color: white !important}
+.segment__button { color: black}
+.segment__button { border-color: black}
+span.notification.blue { background: var(--scoutpurple)}
+span.notification.red { background: var(--scoutred) }
+span.notification.amber { background: var(--scoutyellow); color: black}
+span.notification.green { background: var(--scoutgreen);}
+h2 {text-align: center;}
+.button--material { background: var(--scoutpurple)}
+.button { background: var(--scoutpurple)}
+.text-input--material__label--active {color: var(--scoutteal)}
+.toolbar-button { color: var(--scoutpurple)}
+.back-button__label {color: var(--scoutpurple)}
+.back-button__icon {fill:var(--scoutpurple)}
+:checked+.checkbox__checkmark:before {background: var(--scoutpurple);}
+@media only screen and (min-width: 600px) {
+.menu_sel  {
+   display: none;
+  }
+}

@@ -1,0 +1,82 @@
+
+<ons-page>
+<ons-toolbar>
+      <div class="center">
+        {{globals.application}}
+      </div>
+      <div class="left">
+		<ons-back-button>Back</ons-back-button>
+	</div>
+      <div class="right">
+        <ons-toolbar-button (click)="switchdisplay()" *ngIf="singleprog==''">
+          <ons-icon style="color: 7413dc;" icon="fa-calendar-day" *ngIf="!date_list"></ons-icon>
+          <ons-icon style="color: 7413dc;" icon="fa-user-ninja" *ngIf="date_list"></ons-icon>
+        </ons-toolbar-button>
+       <!-- <div class="menu_sel">  -->
+        <ons-toolbar-button (click)="openMenu()">
+          <ons-icon icon="fa-bars"></ons-icon>
+        </ons-toolbar-button>
+       <!-- </div> -->
+      </div>
+    </ons-toolbar>
+
+        <div class="content">    
+   <div class="wrapper"><h2>Leaders Attending</h2>     
+   <!--<div id="infoi"> <ons-icon icon="fa-ellipsis-v"></ons-icon></div>--></div>
+     <ons-card *ngIf="globals.sectiondata[4].items.length==0">No programme for the selected term</ons-card>
+    <span *ngIf="date_list"> 
+  <span  id="gridcontainer" *ngFor="let prog of globals.progs; index as i">
+    
+  <ons-card *ngIf="singleprog=='' || prog.items[0].eveningid==singleprog">
+    <p class="head2"><span class="head">{{prog.items[0].title}}<!-- ({{members.length-prog.items[0].unavailableleaders.length}}&nbsp;present)--></span>
+    <br><b>{{members.length-prog.items[0].unavailableleaders.length}}&nbsp; leaders and <span *ngIf="prog.items[0].help.length!=0">{{prog.items[0].help.length}}</span> <span *ngIf="prog.items[0].help.length==0">no</span> parent<span *ngIf="prog.items[0].help.length==0||prog.items[0].help.length>1">s</span></b><br>
+    <br><b>{{eventdates(prog.items[0].meetingdate,null)}}
+    <span *ngIf="prog.items[0].starttime != '00:00:00'"> from {{timeformat(prog.items[0].starttime)}}</span><span *ngIf="prog.items[0].endtime != '00:00:00'"> until {{timeformat(prog.items[0].endtime)}}</span></b></p>
+ 
+  <span *ngFor="let ldr of members; index as j">
+  
+  <div  class="line_ldr" (click)="absent($event,ldr.member_id,prog,ldr.first_name,ldr.last_name);">
+     <div class="tick_ldr" >
+      <ons-icon *ngIf="leader_present(ldr.member_id,prog) " icon="fa-check-circle" size="50px" style="color: #00a794;" class="list-item__icon">
+        </ons-icon>
+        <ons-icon *ngIf="!leader_present(ldr.member_id,prog)" icon="fa-circle" size="50px" style="color: LightGray;" class="list-item__icon">
+        </ons-icon>
+      </div>
+    <div class="name_ldr">  
+           {{ldr.first_name}} {{ldr.last_name}}
+    </div>
+  </div>  
+   
+  </span>  
+  </ons-card>
+  </span></span>
+  <span  *ngIf="!date_list">
+    <span  id="gridcontainer" *ngFor="let ldr of members; index as j">
+
+  <ons-card >
+    <div style="display:flex;" (click)="toggle_vis(ldr.member_id,$event)">
+    <div class="head2" style="width: 90%" ><span class="head">{{ldr.first_name}} {{ldr.last_name}}</span></div><div style="width: 10%"><span class="" id="{{ldr.member_id}}_expand"><ons-icon icon="fa-chevron-down"></ons-icon></span> <span class="hide" id="{{ldr.member_id}}_con"><ons-icon icon="fa-chevron-up"></ons-icon></span ></div>
+  </div>    
+  <div style="padding-top: 10px;" class="hide" id="{{ldr.member_id}}"  >    
+  <span *ngFor="let prog of globals.progs; index as i">
+  
+  <div  class="line_ldr" (click)="absent($event,ldr.member_id,prog,ldr.first_name,ldr.last_name);">
+    <div class="tick_ldr" >
+      <ons-icon *ngIf="leader_present(ldr.member_id,prog) " icon="fa-check-circle" size="50px" style="color: #00a794;" class="list-item__icon">
+        </ons-icon>
+        <ons-icon *ngIf="!leader_present(ldr.member_id,prog)" icon="fa-circle" size="50px" style="color: LightGray;" class="list-item__icon">
+        </ons-icon>
+    </div>
+    <div class="date_ldr">  
+    <b>{{eventdates(prog.items[0].meetingdate,null)}}</b>
+    </div>
+      <div class="title_ldr">{{prog.items[0].title}}</div>
+        
+  </div>  
+   
+  </span> 
+  </div> 
+  </ons-card>
+  </span>    </span>
+</div><!--List-->
+    </ons-page>

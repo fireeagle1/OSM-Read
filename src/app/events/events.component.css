@@ -1,0 +1,8 @@
+.notifcation.blue { background: var(--scoutteal)}
+.notifcation.red { background:  var(--scoutred);}
+.notifcation.amber { background: var(--scoutyellow);}
+.notifcation.green { background: var(--scoutgreen);}
+.ecount { width: 50px; border-left: solid; border-width: 1px; padding-left: 5px}
+.bot_ecount {font-size: 16px;}
+.top_ecount {font-size: 14px; padding-bottom: 2px;}
+.notification {border-radius: 0px;}

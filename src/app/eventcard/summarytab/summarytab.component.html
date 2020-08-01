@@ -1,0 +1,35 @@
+<ons-card>
+   <span class="head">{{eventA.name}}</span><br>  
+  <!--<span class="subhead">{{eventdates(eventA.startdate,eventA.enddate)}}</span>-->
+</ons-card>     
+<ons-card>
+  <div class="dateflex">
+  <div><ons-icon icon="fa-calendar" class="iconpad"></ons-icon></div>
+  <div>
+  <span *ngIf="eventdates(eventA.startdate) != '' && eventdates(eventA.enddate) == '' && eventA.starttime != null && eventA.endtime != null" >{{eventdates(eventA.startdate)}} from {{eventtime(eventA.starttime)}} until {{eventtime(eventA.endtime)}}</span>
+  <span *ngIf="eventdates(eventA.startdate) != '' && eventdates(eventA.enddate) != '' && eventA.starttime != null && eventA.endtime != null" >From {{eventtime(eventA.starttime)}} on {{eventdates(eventA.startdate)}} until {{eventtime(eventA.endtime)}} on {{eventdates(eventA.enddate)}}</span>
+  <span *ngIf="eventdates(eventA.startdate) != '' && eventdates(eventA.enddate) != '' && eventA.starttime != null && eventA.endtime == null" >From {{eventtime(eventA.starttime)}} on {{eventdates(eventA.startdate)}} until {{eventdates(eventA.enddate)}}</span>
+ <span *ngIf="eventdates(eventA.startdate) != '' && eventdates(eventA.enddate) == '' && eventA.starttime != null && eventA.endtime == null" >Starts at {{eventtime(eventA.starttime)}} on {{eventdates(eventA.startdate)}} </span>
+  <span *ngIf="eventdates(eventA.startdate) != '' && eventdates(eventA.enddate) == '' && eventA.starttime == null && eventA.endtime == null" >{{eventdates(eventA.startdate)}} </span>
+   <span *ngIf="eventdates(eventA.startdate) != '' && eventdates(eventA.enddate) != '' && eventA.starttime == null && eventA.endtime == null" >{{eventdates(eventA.startdate)}} until {{eventdates(eventA.enddate)}}</span></div></div>
+  <p *ngIf="eventA.location != ''"><ons-icon icon="fa-map-marker-alt"  class="iconpad"></ons-icon>{{eventA.location}}</p>
+  <p *ngIf="signup(eventA.confdate) == 0"><ons-icon icon="fa-exclamation-circle" class="iconpad iconred"></ons-icon>Signup for this event closes today</p>
+  <p *ngIf="signup(eventA.confdate) > 0"><ons-icon icon="fa-check-circle" class="iconpad icongreen"></ons-icon>Signup closes in {{signup(eventA.confdate)}} day<span *ngIf="signup(eventA.confdate) > 1">s</span> on {{eventdates(eventA.confdate)}}.</p>
+  <p *ngIf="(signup(eventA.confdate) < 0) && (eventA.confdate != '1970-01-01')"><ons-icon icon="fa-times-circle"   class="iconpad iconred" ></ons-icon>Signup closed  on {{eventdates(eventA.confdate)}}.</p>
+  <p *ngIf="invites_sent(true) == 0"><ons-icon icon="fa-exclamation-circle" class="iconpad iconred"></ons-icon>No invites sent<p>
+  <p *ngIf="shared>0"><ons-icon icon="fa-share-alt" class="iconpad icongrey"></ons-icon>You have shared this event with {{shared}} section<span *ngIf="shared>1">s</span></p>
+  <p *ngIf="sharee==true"><ons-icon icon="fa-link" class="iconpad icongrey"></ons-icon>Another section shared this event with you</p>
+ <!-- <p *ngIf="invites_sent(false) != 0"> {{invites_sent()}} have not been invited</p> -->  
+</ons-card>  
+<ons-card>
+  <ons-list-item (click)="goto_medical()" modifier="chevron nodivider"><ons-icon icon="fa-ambulance"></ons-icon>&nbsp;&nbsp;Attendees Medical Info</ons-list-item>
+</ons-card>  
+  <ons-card *ngIf="eventA.publicnotes != ''">
+     <ons-icon icon="fa-info-circle"></ons-icon>&nbsp;Information<br>
+    <div [innerHTML]="eventA.publicnotes"></div>
+  </ons-card>
+   <ons-card *ngIf="eventA.notepad != ''">
+     <ons-icon icon="fa-info-circle"></ons-icon>&nbsp;Notepad<br>
+    <div [innerHTML]="eventA.notepad"></div>
+  </ons-card>
+  

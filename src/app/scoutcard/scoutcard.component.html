@@ -1,0 +1,28 @@
+<ons-toolbar>
+	<div class="left">
+		<ons-back-button>Back</ons-back-button>
+	</div>
+  <div class="center">
+        {{globals.application}}
+      </div>
+	<div class="right menu_sel">
+     
+		<ons-toolbar-button (click)="openMenu()">
+			<ons-icon icon="fa-bars"></ons-icon>
+		</ons-toolbar-button>
+	</div>
+</ons-toolbar>
+
+<div class="content">
+  <span *ngIf="member !== undefined">
+  <ons-tabbar swipeable>
+  <ons-tab label="Details" icon="fa-user-tag" active [page]="persontab"></ons-tab>
+  <ons-tab label="Events" icon="fa-clipboard-list" [page]="eventtab"></ons-tab>
+</ons-tabbar>
+</span>
+ <span *ngIf="member === undefined">
+   <ons-card>
+     Sorry. You no longer have access to this membership record
+   </ons-card>  
+ </span>    
+</div> 

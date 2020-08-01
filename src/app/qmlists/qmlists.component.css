@@ -1,0 +1,14 @@
+.head { color: var(--scoutpurple); font-size: 16pt; font-weight: 600; margin-top: 0px;}
+.head2 { margin-top: 0px;} 
+.qmitem { 
+  display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: solid;
+}
+.item {width: 90%}
+.itemq {text-align: right; width: 10%}
+.list_of_items:last-child {
+border-bottom: solid;
+}
+.hide {display: none;}

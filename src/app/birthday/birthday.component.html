@@ -1,0 +1,57 @@
+<ons-page>
+<ons-toolbar>
+      <div class="center">
+        {{globals.application}}
+      </div>
+      <div class="left">
+		<ons-back-button>Back</ons-back-button>
+	</div>
+      <div class="right menu_sel">
+        
+        <ons-toolbar-button (click)="openMenu()">
+          <ons-icon icon="fa-bars"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+   
+        <div class="content">
+      <div *ngIf="globals.secret!=''">    
+      <h2>Birthdays</h2>
+      <!--<p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+        {{globals.mysection}}
+        {{globals.current_term}}
+        {{globals.config[2][globals.mysection][globals.current_term].name}}
+        
+      </p>
+    -->
+    
+<div > <!--List-->
+  <ons-list>
+  <span  id="gridcontainer" *ngFor="let member of members; index as i">
+     <ons-list-header *ngIf="((i==0)||(member.date_of_birth.substring(5,7)!=members[i-1].date_of_birth.substring(5,7)))">{{monthname(member.date_of_birth)}}</ons-list-header>
+<ons-list-item (click)="go($event,member);" id="{{member.member_id}}" modifier="chevron">
+      
+        <span class="left">
+        <div class="member_box" *ngIf="null!=member.photo_guid">  
+     
+      <!--<span class="notification" *ngIf="section_has_roles()==true">{{globals.patrolroles[globals.config[0][globals.mysection].section_type][member.patrol_role_level]}}</span> -->
+      <div class="list-item__thumbnail"  >    
+    <img  src="{{get_photo_url(member)}}" class="list-item__thumbnail"  >
+    </div>
+    </div>
+    <div class="list-item__thumbnail" *ngIf="null==member.photo_guid">
+         <!-- <span class="notification" *ngIf="section_has_roles()==true">{{globals.patrolroles[globals.config[0][globals.mysection].section_type][member.patrol_role_level]}}</span> -->
+    <div class="member_initial member_initial2"  >{{member.first_name.substring(0,1)}}<span *ngIf="no_matches(member.first_name)!=1">{{member.last_name.substring(0,1)}}</span>
+     </div> 
+    </div>
+              
+        </span>
+        <span class="list-item__title">{{member.first_name}} {{member.last_name}}</span>
+        <span class="list-item__subtitle">{{subhead(member.date_of_birth)}}</span>
+</ons-list-item>
+  </span>
+  </ons-list>
+</div><!--List-->
+      </div>
+    </div>
+    </ons-page>

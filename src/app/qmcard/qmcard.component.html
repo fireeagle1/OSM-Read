@@ -1,0 +1,50 @@
+<!--<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="qxf5tksolzymekf"></script>-->
+<ons-page>
+	<ons-toolbar>
+		<div class="center">
+			{{globals.application}}
+		</div>
+    <div class="left">
+		<ons-back-button>Back</ons-back-button>
+	</div>
+		<div class="right">
+
+			<ons-toolbar-button (click)="sortDialog.show()">
+				<ons-icon icon="fa-sort"></ons-icon>
+			</ons-toolbar-button>
+
+			<ons-toolbar-button  class="menu_sel" (click)="openMenu()">
+				<ons-icon icon="fa-bars"></ons-icon>
+			</ons-toolbar-button>
+		</div>
+	</ons-toolbar>
+
+  <div class="content">
+    
+    <ons-card>
+       <p class="head2"><span class="head">{{QMitem[1]}}</span><br>{{QMlist.data.list.name}}</p>
+      <div style="width:100%">
+       <div id="test" class="qmgrid" ></div>
+       </div> <!-- insert images -->
+       <span (click)="uploadFile()"><ons-icon icon="fa-plus-square" ></ons-icon>&nbsp;<b>Add a new Dropbox File</b></span>
+            <form onSubmit="return uploadFile()">
+       
+      <input type="file" id="file-upload" capture="camera" style="display:none"/>
+      
+    </form>
+    </ons-card>     
+    <ons-card *ngIf="QMitem.hasOwnProperty('2')&&QMitem[2] != ''">
+      {{QMitem[2]}} 
+    </ons-card>
+    <ons-card>
+      Quantity: {{QMitem[6]}} (Condition:{{QMitem[5]}})<br>
+      Broken: {{QMitem[7]}}<span *ngIf="!QMitem.hasOwnProperty('7')">0</span>
+       
+    </ons-card>      
+  </div>   
+  <ons-dialog style="width:100%;" id="qmcarddialog" var="naviDialog" cancelable>
+    <div class="dialog-container" style="height: 90vh; width: 100%;">
+    <p>Close</p>
+    <iframe id="pdf_preview" style="height:80%; width:100%;"></iframe>
+    </div>
+  </ons-dialog>

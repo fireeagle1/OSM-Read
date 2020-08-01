@@ -1,0 +1,171 @@
+<ons-page>
+<ons-toolbar>
+      <div class="center">
+        {{globals.application}}
+      </div>
+      <div class="right menu_sel">
+        <ons-toolbar-button (click)="openMenu()" class="menu_sel">
+          <ons-icon icon="fa-bars"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+    </ons-toolbar>
+    <ons-bottom-toolbar>
+      <div style="display:flex"><div style="width:40%">Version&nbsp;{{globals.version}}</div><div style="width:60%"><span style="float:right" *ngIf="(!globals.loaded.events&&globals.access.events>0)||(!globals.loaded.progs&&globals.access.progs>0)"><ons-icon icon="fa-compass" spin="true" ></ons-icon> Loading <span *ngIf="!globals.loaded.progs" >Programmes...</span><span *ngIf="globals.loaded.progs&&!globals.loaded.events">Events...</span></span></div></div>
+</ons-bottom-toolbar>
+
+        <div class="content">
+      <div *ngIf="globals.secret!=''">    
+      <h2>Welcome</h2>
+      <p class="switchsec">
+      <b>Current Term:</b> <span *ngIf="globals.current_term!='-1'">{{globals.config[2][globals.mysection][globals.current_term].name}}</span>&nbsp;<ons-icon (click)="loadPage(termselect)" icon="fa-exchange-alt"></ons-icon>
+      </p>
+      <p class="switchsec">
+      <b>Section:</b>  {{globals.sectionname}}&nbsp;<ons-icon icon="fa-exchange-alt" (click)="loadPage(sectionselect)"></ons-icon>    
+      </p>
+      <ons-card *ngIf="globals.access.noaccess">
+        You have no access to this section. Find out more.
+      </ons-card>
+      <ons-card *ngIf="!globals.access.noaccess && (globals.access.events==0||globals.access.progs==0||globals.access.qm==0||globals.access.members==0)">
+        Some Items are disabled. Find out more.{{globals.access.progs}}
+      </ons-card>  
+        <div class="member_outer" (click)="(globals.access.members>0)&&loadPage(medical)&&!globals.access.noaccess">
+           <div class="member_inner">
+          <div class="member_box"><div class="member_initial" [class.deact]="globals.access.members==0 "><ons-icon icon="fa-ambulance"></ons-icon></div></div>
+          <div class="member_name">Health</div>
+         </div> 
+      </div>
+      <div class="member_outer" (click)="(globals.access.members>0)&&loadPage(globalsearch)">   
+           <div class="member_inner">
+          <div class="member_box"><div class="member_initial" [class.deact]="globals.access.members==0 "><ons-icon icon="fa-search"></ons-icon></div></div>
+          <div class="member_name">Global</div>
+         </div> 
+      </div>
+      <div class="member_outer" (click)="(globals.access.members>0)&&loadPage(birthday)">
+           <div class="member_inner">
+          <div class="member_box"><div class="member_initial" [class.deact]="globals.access.members==0 "><ons-icon icon="fa-birthday-cake"></ons-icon></div></div>
+          <div class="member_name">Birthdays</div>
+         </div> 
+      </div>
+      <div class="member_outer" (click)="(globals.access.members>0)&&loadPage(register)">
+           <div class="member_inner">
+          <div class="member_box"><div class="member_initial" [class.deact]="globals.access.members==0 "><ons-icon icon="fa-user-clock"></ons-icon></div></div>
+          <div class="member_name">Register</div>
+         </div> 
+      </div>
+      <div class="member_outer" (click)="(globals.access.members>0)&&loadPage(lastcheck)">
+           <div class="member_inner">
+          <div class="member_box"><div class="member_initial" [class.deact]="globals.access.members==0 "><ons-icon icon="fa-user-check"></ons-icon></div></div>
+          <div class="member_name">Last Check</div>
+         </div> 
+      </div>
+      <div class="member_outer" (click)="(globals.loaded.events&&globals.access.events>0)&&loadPage(events)" >
+           <div class="member_inner">
+          <div class="member_box"><div class="member_initial"  [class.deact]="globals.access.events==0 " >
+            <ons-icon icon="fa-cube" *ngIf="globals.loaded.events||globals.access.events==0"></ons-icon>
+            <ons-icon icon="fa-compass" spin="true" *ngIf="!globals.loaded.events&&globals.access.events>0" ></ons-icon>
+            </div></div>
+          <div class="member_name">Events</div>
+         </div> 
+      </div>
+      <div class="member_outer" (click)="(globals.loaded.progs&&globals.access.progs>0)&&loadPage(program)">
+           <div class="member_inner">
+          <div class="member_box"><div class="member_initial" [class.deact]="globals.access.progs==0 ">
+          <ons-icon *ngIf="globals.loaded.progs||globals.access.progs==0" icon="fa-cubes"></ons-icon>
+          <ons-icon spin="true" icon="fa-compass" *ngIf="!globals.loaded.progs&&globals.access.progs>0"></ons-icon>
+          </div></div>
+          <div class="member_name">Programme</div>
+         </div> 
+      </div>
+      <div class="member_outer" (click)="(globals.loaded.progs&&globals.access.progs>0)&&loadPage(rosta)">
+           <div class="member_inner">
+          <div class="member_box"><div class="member_initial" [class.deact]="globals.access.progs==0 "><ons-icon icon="fa-hands-helping" *ngIf="globals.loaded.progs||globals.access.progs==0"></ons-icon>
+          <ons-icon spin="true" icon="fa-compass" *ngIf="!globals.loaded.progs&&globals.access.progs>0"></ons-icon>
+          </div></div>
+          <div class="member_name">Parent Rosta</div>
+         </div> 
+      </div>
+      <div class="member_outer" (click)="(globals.loaded.progs&&globals.access.progs>0)&&loadPage(leaderrosta)">
+           <div class="member_inner">
+          <div class="member_box"><div class="member_initial" [class.deact]="globals.access.progs==0 "><ons-icon icon="fa-users" *ngIf="globals.loaded.progs||globals.access.progs==0"></ons-icon><ons-icon spin="true" icon="fa-compass" *ngIf="!globals.loaded.progs&&globals.access.progs>0"></ons-icon></div></div>
+          <div class="member_name">Meeting<br>Leadership</div>
+         </div> 
+      </div>
+       <div class="member_outer" (click)="(globals.loaded.qm&&globals.access.qm>0)&&loadPage(qmlists)">
+           <div class="member_inner">
+          <div class="member_box"><div class="member_initial" [class.deact]="globals.access.qm==0 "><ons-icon icon="fa-boxes" *ngIf="globals.loaded.qm||globals.access.qm==0"></ons-icon><ons-icon spin="true" icon="fa-compass" *ngIf="!globals.loaded.qm&&globals.access.qm>0"></ons-icon></div></div>
+          <div class="member_name">QM List</div>
+         </div> 
+      </div>
+      <div class="member_outer" (click)="loadPage(sectionselect)">
+           <div class="member_inner">
+          <div class="member_box"><div class="member_initial"><ons-icon icon="fa-exchange-alt"></ons-icon></div></div>
+          <div class="member_name">Section</div>
+         </div> 
+      </div> 
+      <div class="member_outer" (click)="loadPage(termselect)">
+           <div class="member_inner">
+          <div class="member_box"><div class="circle"><div class="member_initial"><ons-icon icon="fa-calendar-check"></ons-icon></div></div></div>
+          <div class="member_name">Terms</div>
+         </div> 
+      </div>
+
+ <div class="member_outer" (click)="download()">
+           <div class="member_inner">
+          <div class="member_box"><div class="circle"><div class="member_initial"><ons-icon icon="fa-download"></ons-icon></div></div></div>
+          <div class="member_name">Download</div>
+         </div> 
+      </div>
+
+       <div class="member_outer" (click)="upload()">
+           <div class="member_inner">
+          <div class="member_box"><div class="circle"><div class="member_initial"><ons-icon icon="fa-upload"></ons-icon></div></div></div>
+          <div class="member_name">Upload</div>
+         </div> 
+      </div> 
+
+      <div class="member_outer" (click)="dropbox()">
+           <div class="member_inner">
+          <div class="member_box"><div class="circle"><div class="member_initial">
+            <span class="notification" *ngIf="accessToken!=''">&#10004;</span>
+            <ons-icon icon="fa-dropbox"></ons-icon></div></div></div>
+          <div class="member_name">DropBox</div>
+         </div> 
+      </div>         
+    
+      </div>
+      
+      
+           </div>
+    </ons-page>
+<ons-dialog animation="default" cancelable id="dialog_upload" >
+    <div class="dialog-mask"></div>
+      <div class="dialog">
+        <div class="dialog-container" style="height: 100%">
+          <ons-page>
+            <ons-toolbar>
+              <div class="center">Upload Saved Data</div><div class="right">
+        <ons-toolbar-button (click)="click_close()">
+          <ons-icon icon="fa-times"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+            </ons-toolbar>
+            <div class="content">
+              <div style="text-align: left; padding: 20px;">
+               
+                Select Saved Data <br>
+                <ons-list *ngFor="let save of saved_data; index as j">
+                <ons-list-header *ngIf="(j==0)">Saved Data</ons-list-header>
+<ons-list-item (click)="upload_now(j)" >
+  <span class="list-item__title">{{save.name}}</span>
+        <span class="list-item__subtitle">{{save.date}}</span>
+</ons-list-item>   
+                </ons-list>
+                
+              </div>
+            </div>
+          </ons-page>
+        </div>
+      </div>
+  </ons-dialog>
+    
+   

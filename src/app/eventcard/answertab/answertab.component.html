@@ -1,0 +1,62 @@
+<ons-speed-dial id="speed" position="bottom right" direction="up">
+		<ons-fab  >
+			<ons-icon icon="fa-clipboard-list"></ons-icon>
+		</ons-fab>
+    <ons-speed-dial-item (click)="make_PDF()" >
+			<ons-icon icon="fa-file-pdf"></ons-icon>
+		</ons-speed-dial-item>
+		<ons-speed-dial-item (click)="summary(1)" >
+			<ons-icon icon="fa-file-alt"></ons-icon>
+		</ons-speed-dial-item>
+	</ons-speed-dial>
+
+<ons-card>
+    <span class="head">{{eventA.name}}</span>  
+ <!-- <span class="subhead">{{eventdates(eventA.startdate,eventA.enddate)}}</span> -->
+</ons-card>     
+<ons-card>
+ <span *ngIf="eventA.structure[1].rows.length > 1"> 
+   <p class="card_subhead">Show Summary for</p>
+ <p>
+ <ons-select id="choose-sel" (change)="editSelects($event)" id="selectfield" modifier="underbar">
+    <option value="{{z}}" *ngFor="let value of eventA.structure[1].rows ; index as z" >
+    {{eventA.structure[1].rows[z].name}} 
+    </option>
+    </ons-select></p> 
+    
+
+   <span *ngIf="sum != eventA.structure[1].rows.length -1 " >  
+   <p *ngIf="eventA.structure[1].rows[sum].pL != ''"><b>Parents Portal:</b> {{eventA.structure[1].rows[sum].pL}}</p>
+   <div  class="table green">
+        <div class="table_row">Value</div>
+        <div class="table_row">Count</div>
+    </div>
+       <span *ngFor="let value of labels ; index as z">
+        <div  class="table">
+        <div class="table_row"><b>{{value}}<span *ngIf="value==''">&lt;Blank&gt;</span></b></div>
+        <div class="table_row">{{values[z]}}</div>
+    </div>
+    </span>
+  </span>
+  </span>
+  <span *ngIf="eventA.structure[1].rows.length == 1">
+    No custom fields
+  </span>    
+ </ons-card>   
+<span *ngIf="eventA.structure[1].rows.length > 1"> 
+ <ons-card>
+   <p class="card_subhead">Detailed List</p>
+    <span *ngIf="sum == eventA.structure[1].rows.length -1 " >Select an Option above</span>
+   <span *ngIf="sum != eventA.structure[1].rows.length -1 " > 
+   <ons-list *ngFor="let value of labels ; index as z">
+     <ons-list-header>{{value}}<span *ngIf="value == ''">&lt;Blank&gt;</span></ons-list-header>
+     <span *ngFor="let s of attendees ; index as y">
+     <!--<ons-list-item>{{s.lastname}} {{s.firstname}}</ons-list-item>  --> 
+     <ons-list-item *ngIf="s[(eventA.structure[1].rows[sum].field)].trim()==value" >
+      {{s.firstname}} {{s.lastname}}
+     </ons-list-item>   
+     </span>  
+   </ons-list> 
+   </span>
+ </ons-card>  
+ </span>

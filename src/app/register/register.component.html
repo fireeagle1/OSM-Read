@@ -1,0 +1,93 @@
+<ons-page>
+	<ons-toolbar>
+		<div class="center">
+			{{globals.application}}
+		</div>
+		<div class="left">
+			<ons-back-button>Back</ons-back-button>
+		</div>
+		<div class="right menu_sel">
+			<ons-toolbar-button (click)="openMenu()">
+				<ons-icon icon="fa-bars"></ons-icon>
+			</ons-toolbar-button>
+		</div>
+	</ons-toolbar>
+	<ons-bottom-toolbar>
+    <div>
+		<div class="left bottom-bar">
+			<ons-icon icon="fa-users">&nbsp;</ons-icon><b>{{counter}}</b>/{{members.length}} {{lastclick}}
+ </div>
+  
+</div></ons-bottom-toolbar>
+<ons-fab  position="right bottom" (click)="select_section()">
+        <ons-icon icon="md-check"></ons-icon>
+      </ons-fab>
+        <div class="content">
+      <div *ngIf="globals.secret!=''">    
+      <h2>Register</h2>
+      
+    
+    <div  id="gridcontainer" *ngFor="let member of members; index as i"> 
+    <div *ngIf="((i==0)||(member.patrol!=members[i-1].patrol))" class="patrolheader">
+    <span *ngIf="member.patrol==''">No Patrol</span>  
+    <span *ngIf="member.patrol!=''">{{member.patrol}}</span>
+    </div>  
+    <div class="member_outer" (click)="go($event,member);" id="">
+    <div class="member_inner">
+      
+    <div class="member_box" *ngIf="null!=member.photo_guid">  
+     <!-- <span class="notification" *ngIf="member.patrol_role_level==2">PL</span> 
+      <span class="notification" *ngIf="member.patrol_role_level==1">APL</span> 
+      <span class="notification" *ngIf="member.patrol_role_level==3">SPL</span>-->
+      <span class="notification" *ngIf="section_has_roles()==true">{{globals.patrolroles[globals.config[0][globals.mysection].section_type][member.patrol_role_level]}}</span> 
+      <div class="member_initial"  >
+         
+    <img  src="{{get_photo_url(member)}}" class="member_photo" >
+    </div>
+    </div>
+    <div class="member_box" *ngIf="null==member.photo_guid">
+     <!-- <span class="notification" *ngIf="member.patrol_role_level==2">PL</span> 
+      <span class="notification" *ngIf="member.patrol_role_level==1">APL</span> 
+      <span class="notification" *ngIf="member.patrol_role_level==3">SPL</span> -->
+          <span class="notification" *ngIf="section_has_roles()==true">{{globals.patrolroles[globals.config[0][globals.mysection].section_type][member.patrol_role_level]}}</span> 
+    <div class="member_initial"  >{{member.first_name.substring(0,1)}}<span *ngIf="no_matches(member.first_name)!=1">{{member.last_name.substring(0,1)}}</span>
+     </div> 
+    </div>
+    <div class="member_name"> {{member.first_name}}</div>
+    </div>
+   
+    </div>
+
+    </div>  
+      </div>
+    </div>
+    </ons-page>
+    <ons-dialog animation="default" cancelable id="dialogregdate" >
+    <div class="dialog-mask"></div>
+      <div class="dialog">
+        <div class="dialog-container" style="height: 100%">
+          <ons-page>
+            <ons-toolbar>
+              <div class="center">Select a Date</div><div class="right">
+        <ons-toolbar-button (click)="click_close()">
+          <ons-icon icon="fa-times"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+            </ons-toolbar>
+            <div class="content">
+              <div style="text-align: left; padding: 20px;">
+               
+                <div>Date: 
+                <input id="targetdate" placeholder="Type here"    (input)="generate_cal2(target)" ></div><br>
+               {{getnamefordate(target)}}<br>
+               <div class="month_head"><div class="monthlab">{{monthnames[monthselect]}} {{yearselect}}</div><div class="monthbut"><ons-icon icon="fa-minus-circle" size="24px" (click)="adjustcal(-1)" class="but"></ons-icon></div><div class="monthbut"><ons-icon icon="fa-plus-circle" size="24px" (click)="adjustcal(1)" class="but"></ons-icon></div></div>
+              <div class="week2"><div  class="day2">Mon</div><div  class="day2">Tue</div><div  class="day2">Wed</div><div  class="day2">Thu</div><div  class="day2">Fri</div><div  class="day2">Sat</div><div  class="day2">Sun</div></div>
+              <div class="week" *ngFor="let week of weeks; index as i ">
+                <div  (click)="set_target(day.date)" class="day" *ngFor="let day of week; index as j">{{day.date.getDate()}}</div>
+               </div>  
+</div>
+            </div>
+          </ons-page>
+        </div>
+      </div>
+  </ons-dialog>
